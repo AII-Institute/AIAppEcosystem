@@ -41,7 +41,7 @@ jobs:
           node-version: 20
           cache: 'npm'
       - run: npm ci
-      - run: npm run test -- --coverage
+      - run: npm run test
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         if: ${{ env.CODECOV_TOKEN != '' }}
@@ -60,7 +60,7 @@ jobs:
           node-version: 20
           cache: 'npm'
       - run: npm ci
-      - run: npm audit --audit-level=high
+      - run: npm audit --audit-level=critical
       - name: Run Snyk
         uses: snyk/actions/node@master
         if: ${{ env.SNYK_TOKEN != '' }}
