@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Logo } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
 
 const CLASSES = [
@@ -131,7 +130,14 @@ const avatarColor: Record<string, string> = {
 
 export default function TeacherDashboard() {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', minHeight: '100vh', background: 'var(--paper-warm)' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '240px 1fr',
+        minHeight: '100vh',
+        background: 'var(--paper-warm)',
+      }}
+    >
       {/* ── Sidebar ─────────────────────────────────────────────── */}
       <aside
         style={{
@@ -238,7 +244,12 @@ export default function TeacherDashboard() {
 
         {/* Stats */}
         <div
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 28 }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 16,
+            marginBottom: 28,
+          }}
         >
           {[
             { icon: '👧', value: '18', label: 'Active Students', change: '↑ 2 this week' },
@@ -266,8 +277,14 @@ export default function TeacherDashboard() {
               >
                 {value}
               </div>
-              <div style={{ fontSize: 12, color: 'var(--ink-soft)', fontWeight: 700, marginTop: 2 }}>{label}</div>
-              <div style={{ fontSize: 11, color: 'var(--leaf)', fontWeight: 700, marginTop: 6 }}>{change}</div>
+              <div
+                style={{ fontSize: 12, color: 'var(--ink-soft)', fontWeight: 700, marginTop: 2 }}
+              >
+                {label}
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--leaf)', fontWeight: 700, marginTop: 6 }}>
+                {change}
+              </div>
             </div>
           ))}
         </div>
@@ -308,7 +325,12 @@ export default function TeacherDashboard() {
         </div>
 
         <div
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 28 }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: 16,
+            marginBottom: 28,
+          }}
         >
           {CLASSES.map((cls) => (
             <div
@@ -373,9 +395,15 @@ export default function TeacherDashboard() {
                     {cls.students} students
                   </span>
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--ink-mid)', fontWeight: 600, marginBottom: 12 }}>
-                  Next:{' '}
-                  <strong style={{ color: 'var(--sky)' }}>{cls.next}</strong>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--ink-mid)',
+                    fontWeight: 600,
+                    marginBottom: 12,
+                  }}
+                >
+                  Next: <strong style={{ color: 'var(--sky)' }}>{cls.next}</strong>
                 </div>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
@@ -487,8 +515,17 @@ export default function TeacherDashboard() {
                   {emoji}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, color: 'var(--ink-mid)', lineHeight: 1.5 }}>{text}</div>
-                  <div style={{ fontSize: 11, color: 'var(--ink-soft)', marginTop: 4, fontWeight: 600 }}>
+                  <div style={{ fontSize: 13, color: 'var(--ink-mid)', lineHeight: 1.5 }}>
+                    {text}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: 'var(--ink-soft)',
+                      marginTop: 4,
+                      fontWeight: 600,
+                    }}
+                  >
                     {time}
                   </div>
                 </div>
@@ -553,11 +590,15 @@ export default function TeacherDashboard() {
                   }}
                 >
                   <div style={{ fontSize: 13, fontWeight: 800, color: timeColor }}>{time}</div>
-                  <div style={{ fontSize: 10, color: 'var(--ink-soft)', fontWeight: 600 }}>{day}</div>
+                  <div style={{ fontSize: 10, color: 'var(--ink-soft)', fontWeight: 600 }}>
+                    {day}
+                  </div>
                 </div>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>{name}</div>
-                  <div style={{ fontSize: 11, color: 'var(--ink-soft)', fontWeight: 600 }}>{students}</div>
+                  <div style={{ fontSize: 11, color: 'var(--ink-soft)', fontWeight: 600 }}>
+                    {students}
+                  </div>
                 </div>
               </div>
             ))}

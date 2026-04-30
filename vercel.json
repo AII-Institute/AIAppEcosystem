@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build --workspace=packages/apps/teachly",
+  "outputDirectory": "packages/apps/teachly/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs"
+}
