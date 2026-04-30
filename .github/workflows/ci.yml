@@ -10,15 +10,11 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18, 20]
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           cache: 'npm'
       - run: npm ci
       - run: npm run lint
@@ -48,9 +44,11 @@ jobs:
       - run: npm run test -- --coverage
       - name: Upload coverage
         uses: codecov/codecov-action@v3
+        if: ${{ env.CODECOV_TOKEN != '' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   security:
     name: Security Scan
@@ -62,11 +60,10 @@ jobs:
           node-version: 20
           cache: 'npm'
       - run: npm ci
-      - name: Run npm audit
-        run: npm audit --audit-level=high
+      - run: npm audit --audit-level=high
       - name: Run Snyk
         uses: snyk/actions/node@master
-        continue-on-error: true
+        if: ${{ env.SNYK_TOKEN != '' }}
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -82,9 +79,3 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: packages/*/dist
-          retention-days: 7
