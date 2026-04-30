@@ -4,16 +4,12 @@
   "description": "AI-native cross-platform app ecosystem with secure MCP protocol integration",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "packages/core/*",
-    "packages/apps/*",
-    "packages/mobile/*",
-    "packages/agents/*",
-    "packages/infra"
+    "packages/types",
+    "packages/shared",
+    "packages/core/*"
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "type-check": "turbo run type-check",
