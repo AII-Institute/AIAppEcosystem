@@ -20,7 +20,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: 'Teachly — Where kids, parents & teachers learn together',
   description:
-    'Live classes, async activities, and a community that keeps families close — even when they're apart.',
+    "Live classes, async activities, and a community that keeps families close — even when they're apart.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

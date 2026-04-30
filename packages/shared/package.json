@@ -29,5 +29,15 @@
     "ts-jest": "^29.0.0",
     "typescript": "^5.0.0"
   },
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@ecosystem/types$": "<rootDir>/../types/src/index.ts"
+    }
+  }
 }
