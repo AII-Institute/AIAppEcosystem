@@ -21,6 +21,19 @@ export const CONFIG = {
 
 // ── Permission Scopes ─────────────────────────────────────────
 
+export const TEACHLY_APP_ID = 'teachly' as const;
+
+export const TEACHLY_SCOPES = {
+  CLASSES_READ: 'teachly:classes:read',
+  CLASSES_WRITE: 'teachly:classes:write',
+  ACTIVITIES_READ: 'teachly:activities:read',
+  ACTIVITIES_WRITE: 'teachly:activities:write',
+  COMMUNITY_READ: 'teachly:community:read',
+  COMMUNITY_WRITE: 'teachly:community:write',
+  STUDENTS_READ: 'teachly:students:read',
+  STUDENTS_WRITE: 'teachly:students:write',
+} as const;
+
 export const SCOPES: Record<string, PermissionScope> = {
   CALENDAR_READ: 'calendar:read',
   CALENDAR_WRITE: 'calendar:write',
