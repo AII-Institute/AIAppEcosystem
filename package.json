@@ -6,8 +6,7 @@
   "workspaces": [
     "packages/types",
     "packages/shared",
-    "packages/core/*",
-    "packages/apps/*"
+    "packages/core/*"
   ],
   "scripts": {
     "dev": "turbo run dev --filter=@ecosystem/app-teachly",
