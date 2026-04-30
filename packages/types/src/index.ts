@@ -558,6 +558,101 @@ export interface KeyDerivationParams {
   algorithm: 'PBKDF2';
 }
 
+// ── Teachly ───────────────────────────────────────────────────
+
+export type TeachlyRole = 'teacher' | 'parent' | 'student';
+
+export type ClassColor = 'sky' | 'leaf' | 'sun' | 'coral';
+
+export type ActivityType = 'drawing' | 'voice' | 'reading' | 'worksheet' | 'video';
+
+export type ActivityStatus = 'pending' | 'submitted' | 'reviewed';
+
+export type WeekDay = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
+
+export interface ClassSchedule {
+  days: WeekDay[];
+  time: string;
+  durationMinutes: number;
+}
+
+export interface TeachlyClass {
+  id: string;
+  name: string;
+  emoji: string;
+  teacherId: UserId;
+  schedule: ClassSchedule;
+  studentIds: UserId[];
+  color: ClassColor;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface TeachlyActivity {
+  id: string;
+  classId: string;
+  title: string;
+  description: string;
+  type: ActivityType;
+  dueDate?: Date;
+  createdAt: Date;
+}
+
+export interface ActivitySubmission {
+  id: string;
+  activityId: string;
+  studentId: UserId;
+  status: ActivityStatus;
+  submittedAt?: Date;
+  reviewedAt?: Date;
+  content?: string;
+}
+
+export interface PostReaction {
+  emoji: string;
+  count: number;
+}
+
+export interface CommunityPost {
+  id: string;
+  classId: string;
+  authorId: UserId;
+  authorName: string;
+  authorRole: TeachlyRole;
+  content: string;
+  reactions: PostReaction[];
+  createdAt: Date;
+}
+
+export interface TeachlyStudent {
+  id: UserId;
+  name: string;
+  age: number;
+  parentId: UserId;
+  classIds: string[];
+  stars: number;
+  badges: string[];
+}
+
+export interface TeachlyTeacherStats {
+  activeStudents: number;
+  activeClasses: number;
+  activitiesDone: number;
+  completionRate: number;
+  monthlyRevenue: number;
+}
+
+export interface TeachlyParentProgress {
+  childId: UserId;
+  attendancePercent: number;
+  sessionsAttended: number;
+  totalSessions: number;
+  activitiesDone: number;
+  activitiesPending: number;
+  starsEarned: number;
+  badgesEarned: number;
+}
+
 // ── Utilities ─────────────────────────────────────────────────
 
 export type JsonSchema = {
