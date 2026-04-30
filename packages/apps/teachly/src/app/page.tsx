@@ -4,43 +4,42 @@ import { Button } from '@/components/ui/Button';
 
 export default function LandingPage() {
   return (
-    <div style={{ fontFamily: 'var(--font-nunito), sans-serif', background: 'var(--paper)', minHeight: '100vh' }}>
+    <div
+      style={{
+        fontFamily: 'var(--font-nunito), sans-serif',
+        background: 'var(--paper)',
+        minHeight: '100vh',
+      }}
+    >
       {/* ── Nav ─────────────────────────────────────────────────── */}
-      <nav
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '20px 48px',
-          background: 'var(--paper)',
-          borderBottom: '1px solid rgba(26,26,46,0.06)',
-        }}
-      >
+      <nav className="r-nav">
         <Logo />
-        <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
-          <Link href="/dashboard" style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)' }}>
+        <div className="r-nav-links">
+          <Link
+            href="/dashboard"
+            style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)' }}
+          >
             For Teachers
           </Link>
           <Link href="/parent" style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)' }}>
             For Parents
           </Link>
-          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)', cursor: 'pointer' }}>
+          <span
+            style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)', cursor: 'pointer' }}
+          >
             Pricing
           </span>
-          <Button variant="primary" size="sm">
-            Log in
-          </Button>
         </div>
+        <Button variant="primary" size="sm">
+          Log in
+        </Button>
       </nav>
 
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section
+        className="r-hero r-section-pad"
         style={{
           padding: '64px 48px 0',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 48,
-          alignItems: 'end',
           minHeight: 480,
           maxWidth: 1200,
           margin: '0 auto',
@@ -69,9 +68,9 @@ export default function LandingPage() {
           </div>
 
           <h1
+            className="r-h1"
             style={{
               fontFamily: 'var(--font-fraunces), serif',
-              fontSize: 52,
               fontWeight: 700,
               lineHeight: 1.1,
               color: 'var(--ink)',
@@ -130,7 +129,8 @@ export default function LandingPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 800,
-                    background: v === 'sun' ? 'var(--sun)' : v === 'sky' ? 'var(--sky)' : 'var(--leaf)',
+                    background:
+                      v === 'sun' ? 'var(--sun)' : v === 'sky' ? 'var(--sky)' : 'var(--leaf)',
                     color: v === 'sun' ? 'var(--ink)' : '#fff',
                     zIndex: 3 - i,
                   }}
@@ -146,7 +146,10 @@ export default function LandingPage() {
         </div>
 
         {/* Right visual — live class preview */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, paddingTop: 20 }}>
+        <div
+          className="r-hero-visual"
+          style={{ display: 'flex', flexDirection: 'column', gap: 12, paddingTop: 20 }}
+        >
           {/* Live classroom card */}
           <div
             style={{
@@ -189,13 +192,24 @@ export default function LandingPage() {
               }}
             >
               <span
-                style={{ width: 6, height: 6, borderRadius: '50%', background: 'white', display: 'inline-block' }}
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: 'white',
+                  display: 'inline-block',
+                }}
               />
               Live Now
             </div>
 
             <div
-              style={{ fontFamily: 'var(--font-fraunces), serif', fontSize: 20, fontWeight: 700, marginBottom: 4 }}
+              style={{
+                fontFamily: 'var(--font-fraunces), serif',
+                fontSize: 20,
+                fontWeight: 700,
+                marginBottom: 4,
+              }}
             >
               🔭 Science Explorers
             </div>
@@ -247,8 +261,12 @@ export default function LandingPage() {
               }}
             >
               <div style={{ fontSize: 20 }}>🎨</div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: '#1B8A4E', marginTop: 4 }}>Draw &amp; Share</div>
-              <div style={{ fontSize: 10, color: 'var(--ink-soft)', marginTop: 2, fontWeight: 600 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: '#1B8A4E', marginTop: 4 }}>
+                Draw &amp; Share
+              </div>
+              <div
+                style={{ fontSize: 10, color: 'var(--ink-soft)', marginTop: 2, fontWeight: 600 }}
+              >
                 Async activity
               </div>
             </div>
@@ -261,8 +279,12 @@ export default function LandingPage() {
               }}
             >
               <div style={{ fontSize: 20 }}>📊</div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: '#8B6000', marginTop: 4 }}>Progress Tracker</div>
-              <div style={{ fontSize: 10, color: 'var(--ink-soft)', marginTop: 2, fontWeight: 600 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: '#8B6000', marginTop: 4 }}>
+                Progress Tracker
+              </div>
+              <div
+                style={{ fontSize: 10, color: 'var(--ink-soft)', marginTop: 2, fontWeight: 600 }}
+              >
                 For parents
               </div>
             </div>
@@ -272,13 +294,11 @@ export default function LandingPage() {
 
       {/* ── Feature strips ──────────────────────────────────────── */}
       <section
+        className="r-grid-3 r-section-pad"
         style={{
           maxWidth: 1200,
           margin: '80px auto 0',
           padding: '0 48px 80px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 24,
         }}
       >
         {[

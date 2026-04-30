@@ -130,16 +130,10 @@ const avatarColor: Record<string, string> = {
 
 export default function TeacherDashboard() {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '240px 1fr',
-        minHeight: '100vh',
-        background: 'var(--paper-warm)',
-      }}
-    >
+    <div className="r-sidebar-layout" style={{ background: 'var(--paper-warm)' }}>
       {/* ── Sidebar ─────────────────────────────────────────────── */}
       <aside
+        className="r-sidebar-desktop"
         style={{
           background: 'var(--ink)',
           padding: '28px 0',
@@ -212,7 +206,48 @@ export default function TeacherDashboard() {
       </aside>
 
       {/* ── Main content ────────────────────────────────────────── */}
-      <main style={{ padding: 32, overflow: 'auto' }}>
+      <main style={{ padding: 'clamp(16px, 4vw, 32px)', overflow: 'auto' }}>
+        {/* Mobile-only top bar */}
+        <div
+          style={{
+            display: 'none',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 20,
+            paddingBottom: 16,
+            borderBottom: '1px solid rgba(26,26,46,0.08)',
+          }}
+          className="r-mobile-topbar"
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-fraunces), serif',
+              fontSize: 20,
+              fontWeight: 700,
+              color: 'var(--ink)',
+            }}
+          >
+            ✦ Teachly
+          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                background: 'var(--sun)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 14,
+                fontWeight: 800,
+                color: 'var(--ink)',
+              }}
+            >
+              S
+            </div>
+          </div>
+        </div>
         {/* Header */}
         <div
           style={{
@@ -243,14 +278,7 @@ export default function TeacherDashboard() {
         </div>
 
         {/* Stats */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 16,
-            marginBottom: 28,
-          }}
-        >
+        <div className="r-grid-4" style={{ marginBottom: 28 }}>
           {[
             { icon: '👧', value: '18', label: 'Active Students', change: '↑ 2 this week' },
             { icon: '📚', value: '3', label: 'Active Classes', change: '↑ 1 new class' },
@@ -324,14 +352,7 @@ export default function TeacherDashboard() {
           </button>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 16,
-            marginBottom: 28,
-          }}
-        >
+        <div className="r-grid-3-sm" style={{ marginBottom: 28 }}>
           {CLASSES.map((cls) => (
             <div
               key={cls.id}
@@ -445,7 +466,7 @@ export default function TeacherDashboard() {
         </div>
 
         {/* Bottom grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 16 }}>
+        <div className="r-panel-layout" style={{ gap: 16, minHeight: 'unset' }}>
           {/* Activity feed */}
           <div
             style={{

@@ -88,7 +88,7 @@ export default function OnboardingPage() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 24,
+        padding: 'clamp(12px, 4vw, 24px)',
       }}
     >
       {/* Progress bar */}
@@ -130,7 +130,7 @@ export default function OnboardingPage() {
           maxWidth: 480,
           background: 'white',
           borderRadius: 'var(--radius-lg)',
-          padding: 40,
+          padding: 'clamp(20px, 6vw, 40px)',
           boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         }}
       >

@@ -124,7 +124,7 @@ export default function KidView() {
         <div
           style={{
             fontFamily: 'var(--font-fraunces), serif',
-            fontSize: 36,
+            fontSize: 'clamp(24px, 6vw, 36px)',
             fontWeight: 700,
             color: 'var(--ink)',
             marginBottom: 8,
@@ -139,10 +139,8 @@ export default function KidView() {
 
       {/* ── Classes ─────────────────────────────────────────────── */}
       <div
+        className="r-grid-3-sm"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 16,
           marginBottom: 28,
           maxWidth: 860,
           margin: '0 auto 28px',
@@ -214,7 +212,7 @@ export default function KidView() {
         >
           🏆 My Badges
         </div>
-        <div style={{ display: 'flex', gap: 12 }}>
+        <div className="r-badges">
           {BADGES.map(({ icon, name, bg, earned }) => (
             <div
               key={name}

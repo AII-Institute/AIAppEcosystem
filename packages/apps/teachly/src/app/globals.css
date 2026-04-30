@@ -53,3 +53,135 @@ button {
   font-family: inherit;
   cursor: pointer;
 }
+
+/* ── Responsive layout utilities ─────────────────────────────── */
+
+.r-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: var(--paper);
+  border-bottom: 1px solid rgba(26, 26, 46, 0.06);
+}
+
+.r-nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.r-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+}
+
+.r-section-pad {
+  padding: 0 48px;
+}
+
+.r-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.r-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.r-grid-3-sm {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.r-sidebar-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.r-panel-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  min-height: calc(100vh - 73px);
+}
+
+.r-h1 {
+  font-size: 52px;
+}
+
+.r-badges {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .r-sidebar-layout {
+    grid-template-columns: 1fr;
+  }
+  .r-sidebar-desktop {
+    display: none;
+  }
+  .r-panel-layout {
+    grid-template-columns: 1fr;
+  }
+  .r-panel-right {
+    display: none;
+  }
+  .r-grid-4 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .r-nav {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .r-nav-links {
+    display: none;
+  }
+  .r-hero {
+    grid-template-columns: 1fr;
+  }
+  .r-hero-visual {
+    display: none;
+  }
+  .r-section-pad {
+    padding: 0 16px;
+  }
+  .r-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .r-grid-3-sm {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .r-grid-4 {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .r-h1 {
+    font-size: 34px;
+  }
+  .r-hide-mobile {
+    display: none !important;
+  }
+  .r-badges {
+    gap: 8px;
+  }
+  .r-badges > * {
+    flex: 0 0 calc(33.333% - 6px);
+  }
+  .r-mobile-topbar {
+    display: flex !important;
+  }
+}

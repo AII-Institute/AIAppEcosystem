@@ -66,7 +66,7 @@ const COMMUNITY = [
     color: '#8B6000',
     name: "Zoe's Dad",
     role: 'Parent',
-    text: "Zoe just submitted her voice recording! She was so proud 🥹 This is exactly what we were looking for in remote learning.",
+    text: 'Zoe just submitted her voice recording! She was so proud 🥹 This is exactly what we were looking for in remote learning.',
     time: '30 min ago',
     reactions: [
       { emoji: '🥹', count: 7 },
@@ -100,24 +100,23 @@ function StatusBadge({ status }: { status: 'done' | 'pending' | 'new' }) {
 
 export default function ParentDashboard() {
   return (
-    <div style={{ fontFamily: 'var(--font-nunito), sans-serif', background: 'var(--paper-warm)', minHeight: '100vh' }}>
+    <div
+      style={{
+        fontFamily: 'var(--font-nunito), sans-serif',
+        background: 'var(--paper-warm)',
+        minHeight: '100vh',
+      }}
+    >
       {/* ── Top nav ─────────────────────────────────────────────── */}
-      <nav
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '20px 48px',
-          background: 'var(--paper)',
-          borderBottom: '1px solid rgba(26,26,46,0.06)',
-        }}
-      >
+      <nav className="r-nav">
         <Logo />
-        <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
+        <div className="r-nav-links" style={{ gap: 24 }}>
           <Link href="/" style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)' }}>
             Home
           </Link>
-          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)', cursor: 'pointer' }}>
+          <span
+            style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-mid)', cursor: 'pointer' }}
+          >
             Classes
           </span>
           <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--sky)', cursor: 'pointer' }}>
@@ -140,13 +139,15 @@ export default function ParentDashboard() {
             >
               J
             </div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>Jamie&apos;s Parent</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>
+              Jamie&apos;s Parent
+            </span>
           </div>
         </div>
       </nav>
 
       {/* ── Body ────────────────────────────────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', minHeight: 'calc(100vh - 73px)' }}>
+      <div className="r-panel-layout">
         {/* Left main */}
         <div style={{ padding: 32 }}>
           {/* Child selector */}
@@ -176,8 +177,7 @@ export default function ParentDashboard() {
                     width: 24,
                     height: 24,
                     borderRadius: '50%',
-                    background:
-                      variant === 'sun' ? 'var(--sun)' : 'var(--leaf)',
+                    background: variant === 'sun' ? 'var(--sun)' : 'var(--leaf)',
                     color: variant === 'sun' ? 'var(--ink)' : 'white',
                     fontSize: 12,
                     display: 'flex',
@@ -211,9 +211,7 @@ export default function ParentDashboard() {
           </div>
 
           {/* Progress cards */}
-          <div
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 28 }}
-          >
+          <div className="r-grid-3-sm" style={{ marginBottom: 28 }}>
             {[
               {
                 bg: 'var(--sky-light)',
@@ -265,8 +263,12 @@ export default function ParentDashboard() {
                 >
                   {value}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--ink-soft)', fontWeight: 700 }}>{label}</div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--ink)', marginTop: 4 }}>{sub}</div>
+                <div style={{ fontSize: 12, color: 'var(--ink-soft)', fontWeight: 700 }}>
+                  {label}
+                </div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--ink)', marginTop: 4 }}>
+                  {sub}
+                </div>
               </div>
             ))}
           </div>
@@ -337,10 +339,14 @@ export default function ParentDashboard() {
                   {icon}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>
+                  <div
+                    style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}
+                  >
                     {name}
                   </div>
-                  <div style={{ fontSize: 12, color: 'var(--ink-soft)', fontWeight: 600 }}>{cls}</div>
+                  <div style={{ fontSize: 12, color: 'var(--ink-soft)', fontWeight: 600 }}>
+                    {cls}
+                  </div>
                 </div>
                 {status === 'cta' ? (
                   <Button variant="sun" size="sm" style={{ fontSize: 12, padding: '8px 16px' }}>
@@ -356,6 +362,7 @@ export default function ParentDashboard() {
 
         {/* ── Community panel ──────────────────────────────────── */}
         <aside
+          className="r-panel-right"
           style={{
             background: 'white',
             borderLeft: '1px solid rgba(26,26,46,0.06)',
@@ -403,12 +410,21 @@ export default function ParentDashboard() {
                   {initial}
                 </div>
                 <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--ink)' }}>{name}</span>
-                <span style={{ fontSize: 10, color: 'var(--ink-soft)', fontWeight: 600, marginLeft: 'auto' }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    color: 'var(--ink-soft)',
+                    fontWeight: 600,
+                    marginLeft: 'auto',
+                  }}
+                >
                   {role}
                 </span>
               </div>
               <p style={{ fontSize: 12, color: 'var(--ink-mid)', lineHeight: 1.5 }}>{text}</p>
-              <div style={{ fontSize: 10, color: 'var(--ink-soft)', marginTop: 6, fontWeight: 600 }}>
+              <div
+                style={{ fontSize: 10, color: 'var(--ink-soft)', marginTop: 6, fontWeight: 600 }}
+              >
                 {time}
               </div>
               <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
@@ -434,7 +450,10 @@ export default function ParentDashboard() {
             </div>
           ))}
 
-          <Button variant="primary" style={{ width: '100%', justifyContent: 'center', fontSize: 13, padding: 12 }}>
+          <Button
+            variant="primary"
+            style={{ width: '100%', justifyContent: 'center', fontSize: 13, padding: 12 }}
+          >
             Post to community
           </Button>
         </aside>
