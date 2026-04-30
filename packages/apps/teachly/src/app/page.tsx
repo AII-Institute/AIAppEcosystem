@@ -30,9 +30,11 @@ export default function LandingPage() {
             Pricing
           </span>
         </div>
-        <Button variant="primary" size="sm">
-          Log in
-        </Button>
+        <Link href="/onboarding">
+          <Button variant="primary" size="sm">
+            Get started
+          </Button>
+        </Link>
       </nav>
 
       {/* ── Hero ────────────────────────────────────────────────── */}
@@ -98,7 +100,7 @@ export default function LandingPage() {
           </p>
 
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-            <Link href="/dashboard">
+            <Link href="/onboarding">
               <Button variant="sun" size="lg">
                 Start your classroom →
               </Button>

@@ -9,6 +9,14 @@ build/
 .next/
 out/
 *.tsbuildinfo
+# Compiled JS/declaration files that tsc may emit alongside source
+packages/*/src/*.js
+packages/*/src/*.js.map
+packages/*/src/*.d.ts
+packages/*/src/*.d.ts.map
+
+# Vercel CLI local config
+.vercel/
 
 # Environment files
 .env
