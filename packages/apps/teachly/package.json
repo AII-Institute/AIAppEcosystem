@@ -12,9 +12,10 @@
     "clean": "rm -rf .next dist"
   },
   "dependencies": {
-    "@ecosystem/types": "*",
-    "@ecosystem/shared": "*",
     "@ecosystem/core-onboarding": "*",
+    "@ecosystem/shared": "*",
+    "@ecosystem/types": "*",
+    "@supabase/ssr": "^0.10.2",
     "next": "14.2.29",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
