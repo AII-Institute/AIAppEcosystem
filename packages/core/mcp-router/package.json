@@ -1,0 +1,20 @@
+{
+  "name": "@ecosystem/core-mcp-router",
+  "version": "0.1.0",
+  "description": "MCP protocol routing and capability registry",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "jest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ecosystem/types": "*",
+    "@ecosystem/shared": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

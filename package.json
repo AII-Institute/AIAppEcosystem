@@ -1,0 +1,46 @@
+{
+  "name": "ai-app-ecosystem",
+  "version": "1.0.0",
+  "description": "AI-native cross-platform app ecosystem with secure MCP protocol integration",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "packages/core/*",
+    "packages/apps/*",
+    "packages/mobile/*",
+    "packages/agents/*",
+    "packages/infra"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "prepare": "husky install",
+    "install-hooks": "husky install"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
+    "turbo": "^1.10.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aii-institute/aiappecosystem.git"
+  },
+  "license": "MIT"
+}
