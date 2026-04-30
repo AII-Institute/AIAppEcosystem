@@ -1,0 +1,22 @@
+{
+  "name": "@ecosystem/core-onboarding",
+  "version": "0.1.0",
+  "description": "Shared user onboarding data layer for all ecosystem apps",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ecosystem/types": "*",
+    "@ecosystem/shared": "*",
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

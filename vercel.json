@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npx turbo run build --filter=@ecosystem/app-teachly",
+  "outputDirectory": "packages/apps/teachly/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs"
+}

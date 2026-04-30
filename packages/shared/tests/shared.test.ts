@@ -45,8 +45,8 @@ describe('validateEmail', () => {
 
 describe('validateUUID', () => {
   it('accepts valid v4 UUIDs', () => {
-    expect(validateUUID('550e8400-e29b-41d4-a716-446655440000')).toBe(false); // v1
-    expect(validateUUID('f47ac10b-58cc-4372-a567-0e02b2c3d479')).toBe(true);  // v4
+    expect(validateUUID('550e8400-e29b-11d4-a716-446655440000')).toBe(false); // v1
+    expect(validateUUID('f47ac10b-58cc-4372-a567-0e02b2c3d479')).toBe(true); // v4
   });
 
   it('rejects malformed UUIDs', () => {
