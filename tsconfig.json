@@ -6,8 +6,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -21,7 +19,8 @@
     "baseUrl": ".",
     "paths": {
       "@ecosystem/types": ["packages/types/src"],
-      "@ecosystem/shared": ["packages/shared/src"]
+      "@ecosystem/shared": ["packages/shared/src"],
+      "@ecosystem/core-onboarding": ["packages/core/onboarding/src"]
     }
   },
   "exclude": ["node_modules", "dist", "**/*.test.ts"]

@@ -381,11 +381,7 @@ export interface AgentWorkflow {
   createdAt: Date;
 }
 
-export type WorkflowStep =
-  | LLMStep
-  | ToolStep
-  | ConditionalStep
-  | HumanApprovalStep;
+export type WorkflowStep = LLMStep | ToolStep | ConditionalStep | HumanApprovalStep;
 
 export interface LLMStep {
   type: 'llm';
@@ -665,9 +661,7 @@ export type JsonSchema = {
   [key: string]: unknown;
 };
 
-export type Result<T, E = Error> =
-  | { success: true; data: T }
-  | { success: false; error: E };
+export type Result<T, E = Error> = { success: true; data: T } | { success: false; error: E };
 
 export type AsyncResult<T, E = Error> = Promise<Result<T, E>>;
 
@@ -684,4 +678,53 @@ export interface PaginationParams {
   pageSize: number;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
+}
+
+// ── Onboarding ────────────────────────────────────────────────
+
+export type OnboardingStepKey = string;
+
+export type OnboardingStatus = 'not_started' | 'in_progress' | 'completed';
+
+export interface OnboardingUser {
+  id: string;
+  email: string;
+  appId: AppId;
+  role: string;
+  displayName: string | null;
+  avatarColor: string | null;
+  createdAt: string;
+}
+
+export interface OnboardingState {
+  id: string;
+  userId: string;
+  appId: AppId;
+  currentStep: OnboardingStepKey;
+  status: OnboardingStatus;
+  stepData: Record<string, unknown>;
+  completedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface OnboardingStepDefinition {
+  key: OnboardingStepKey;
+  order: number;
+  label: string;
+}
+
+export interface CreateOnboardingUserInput {
+  email: string;
+  appId: AppId;
+  role: string;
+  displayName?: string;
+  avatarColor?: string;
+}
+
+export interface UpdateOnboardingStateInput {
+  currentStep?: OnboardingStepKey;
+  status?: OnboardingStatus;
+  stepData?: Record<string, unknown>;
+  completedAt?: string | null;
 }
