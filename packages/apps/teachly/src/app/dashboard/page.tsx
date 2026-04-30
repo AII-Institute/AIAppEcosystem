@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
+import { LogoutButton } from '@/components/auth/LogoutButton';
 
 const CLASSES = [
   {
@@ -207,6 +208,9 @@ export default function TeacherDashboard() {
               <div style={{ fontSize: 13, fontWeight: 700, color: 'white' }}>Ms. Sarah</div>
               <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>Teacher · Pro Plan</div>
             </div>
+          </div>
+          <div style={{ marginTop: 16 }}>
+            <LogoutButton variant="sidebar" />
           </div>
         </div>
       </aside>

@@ -2,12 +2,13 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { startAuthentication, startRegistration } from '@simplewebauthn/browser';
 import { Button } from '@/components/ui/Button';
 
 // ── Types ─────────────────────────────────────────────────────
 
 type Role = 'teacher' | 'parent' | 'student';
-type Step = 'email' | 'otp' | 'mfa' | 'profile' | 'role_setup' | 'done';
+type Step = 'email' | 'otp' | 'mfa' | 'passkey_prompt' | 'profile' | 'role_setup' | 'done';
 
 const AVATAR_COLORS = [
   { label: 'Sky', value: '#4ABDE8' },
@@ -41,6 +42,7 @@ export default function OnboardingPage() {
 
   const [email, setEmail] = useState('');
   const [isExistingUser, setIsExistingUser] = useState(false);
+  const [hasPasskey, setHasPasskey] = useState(false);
   const [factorId, setFactorId] = useState<string | null>(null);
   const [resendTimer, setResendTimer] = useState(0);
 
@@ -71,6 +73,78 @@ export default function OnboardingPage() {
     }
   }, []);
 
+  async function checkPasskey(emailVal: string) {
+    const res = await fetch(`/api/auth/check-passkey?email=${encodeURIComponent(emailVal)}`);
+    const data = await res.json();
+    setHasPasskey(data.hasPasskey ?? false);
+    return data as { hasPasskey: boolean; credentials: { id: string; transports: string[] }[] };
+  }
+
+  async function handlePasskeyLogin() {
+    setLoading(true);
+    setError(null);
+    try {
+      const optRes = await fetch('/api/auth/passkey/authenticate/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!optRes.ok) throw new Error((await optRes.json()).error);
+      const options = await optRes.json();
+
+      const authResponse = await startAuthentication({ optionsJSON: options });
+
+      const finishRes = await fetch('/api/auth/passkey/authenticate/finish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, response: authResponse }),
+      });
+      if (!finishRes.ok) throw new Error((await finishRes.json()).error);
+      router.push('/dashboard');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Passkey sign-in failed');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleRegisterPasskey() {
+    setLoading(true);
+    setError(null);
+    try {
+      const optRes = await fetch('/api/auth/passkey/register/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!optRes.ok) throw new Error((await optRes.json()).error);
+      const options = await optRes.json();
+
+      const regResponse = await startRegistration({ optionsJSON: options });
+
+      const finishRes = await fetch('/api/auth/passkey/register/finish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, response: regResponse }),
+      });
+      if (!finishRes.ok) throw new Error((await finishRes.json()).error);
+
+      // Continue to profile setup or dashboard
+      if (isExistingUser) {
+        router.push('/dashboard');
+      } else {
+        setStep('profile');
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Passkey setup failed');
+      // Skip passkey and continue anyway
+      if (isExistingUser) router.push('/dashboard');
+      else setStep('profile');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleSendOtp() {
     const data = await call(() =>
       fetch('/api/auth/send-otp', {
@@ -83,6 +157,17 @@ export default function OnboardingPage() {
     setIsExistingUser(data.isExistingUser);
     setResendTimer(60);
     setStep('otp');
+  }
+
+  async function handleEmailContinue() {
+    // Check for passkey before sending OTP
+    const pk = await checkPasskey(email);
+    if (pk.hasPasskey) {
+      setIsExistingUser(true);
+      // Show passkey prompt on email step — handled in EmailStep UI
+      return;
+    }
+    await handleSendOtp();
   }
 
   async function handleVerifyOtp(token: string) {
@@ -99,7 +184,11 @@ export default function OnboardingPage() {
       setStep('mfa');
       return;
     }
-    if (data.isExistingUser) {
+    setIsExistingUser(data.isExistingUser);
+    // Offer passkey setup after every successful auth (if not already enrolled)
+    if (!hasPasskey) {
+      setStep('passkey_prompt');
+    } else if (data.isExistingUser) {
       router.push('/dashboard');
     } else {
       setStep('profile');
@@ -115,7 +204,10 @@ export default function OnboardingPage() {
       }),
     );
     if (!data) return;
-    if (data.isExistingUser) {
+    setIsExistingUser(data.isExistingUser);
+    if (!hasPasskey) {
+      setStep('passkey_prompt');
+    } else if (data.isExistingUser) {
       router.push('/dashboard');
     } else {
       setStep('profile');
@@ -205,8 +297,24 @@ export default function OnboardingPage() {
         {step === 'email' && (
           <EmailStep
             email={email}
-            onEmailChange={setEmail}
-            onSubmit={handleSendOtp}
+            onEmailChange={(v) => {
+              setEmail(v);
+              setHasPasskey(false);
+            }}
+            onSubmit={handleEmailContinue}
+            onPasskeyLogin={handlePasskeyLogin}
+            onUseEmail={handleSendOtp}
+            hasPasskey={hasPasskey}
+            loading={loading}
+          />
+        )}
+        {step === 'passkey_prompt' && (
+          <PasskeyPromptStep
+            onRegister={handleRegisterPasskey}
+            onSkip={() => {
+              if (isExistingUser) router.push('/dashboard');
+              else setStep('profile');
+            }}
             loading={loading}
           />
         )}
@@ -258,17 +366,23 @@ function EmailStep({
   email,
   onEmailChange,
   onSubmit,
+  onPasskeyLogin,
+  onUseEmail,
+  hasPasskey,
   loading,
 }: {
   email: string;
   onEmailChange: (v: string) => void;
   onSubmit: () => void;
+  onPasskeyLogin: () => void;
+  onUseEmail: () => void;
+  hasPasskey: boolean;
   loading: boolean;
 }) {
   return (
     <>
       <h1 style={heading}>Sign in or sign up</h1>
-      <p style={sub}>Enter your email — we&apos;ll send a one-time code to verify it.</p>
+      <p style={sub}>Enter your email to continue.</p>
       <label style={labelStyle}>Email address</label>
       <input
         style={inputStyle}
@@ -279,16 +393,72 @@ function EmailStep({
         onChange={(e) => onEmailChange(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && email && !loading && onSubmit()}
       />
+
+      {hasPasskey ? (
+        <>
+          <Button
+            variant="sky"
+            size="md"
+            onClick={onPasskeyLogin}
+            disabled={loading}
+            style={{ width: '100%', marginTop: 24 }}
+          >
+            {loading ? 'Verifying…' : '🔑 Sign in with passkey'}
+          </Button>
+          <div style={{ textAlign: 'center', marginTop: 14 }}>
+            <button onClick={onUseEmail} disabled={loading} style={linkBtn}>
+              Use email code instead
+            </button>
+          </div>
+        </>
+      ) : (
+        <Button
+          variant="sky"
+          size="md"
+          onClick={onSubmit}
+          disabled={!email || loading}
+          style={{ width: '100%', marginTop: 24 }}
+        >
+          {loading ? 'Checking…' : 'Continue →'}
+        </Button>
+      )}
+    </>
+  );
+}
+
+// ── Passkey prompt step ───────────────────────────────────────
+
+function PasskeyPromptStep({
+  onRegister,
+  onSkip,
+  loading,
+}: {
+  onRegister: () => void;
+  onSkip: () => void;
+  loading: boolean;
+}) {
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ fontSize: 52, marginBottom: 16 }}>🔑</div>
+      <h1 style={{ ...heading, textAlign: 'center' }}>Set up a passkey</h1>
+      <p style={{ ...sub, textAlign: 'center', marginBottom: 28 }}>
+        Sign in faster next time using Face ID, Touch ID, or your device PIN — no codes needed.
+      </p>
       <Button
         variant="sky"
         size="md"
-        onClick={onSubmit}
-        disabled={!email || loading}
-        style={{ width: '100%', marginTop: 24 }}
+        onClick={onRegister}
+        disabled={loading}
+        style={{ width: '100%' }}
       >
-        {loading ? 'Sending…' : 'Send code →'}
+        {loading ? 'Setting up…' : 'Create passkey'}
       </Button>
-    </>
+      <div style={{ marginTop: 14 }}>
+        <button onClick={onSkip} disabled={loading} style={linkBtn}>
+          Maybe later
+        </button>
+      </div>
+    </div>
   );
 }
 

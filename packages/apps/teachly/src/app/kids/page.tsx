@@ -1,3 +1,5 @@
+import { LogoutButton } from '@/components/auth/LogoutButton';
+
 const CLASSES = [
   {
     emoji: '🔭',
@@ -109,6 +111,7 @@ export default function KidView() {
           </div>
           <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink)' }}>Mia</span>
           <span style={{ fontSize: 13 }}>⭐ 24</span>
+          <LogoutButton variant="nav" />
         </div>
       </div>
 
